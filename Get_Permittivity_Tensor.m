@@ -2,7 +2,7 @@ close all;
 clc
 clear 
 
-% Parameters of SnO2 core
+% Parameters of anisotropic material (SnO2)
 
 b = 12.4; %core radius [nm]
 d = 2.5; %shell thickness [nm]
