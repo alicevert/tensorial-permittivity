@@ -1,18 +1,19 @@
 %% Last updated: 2026-07-16 by Alice Calvert
 %% This program is a program to calculate the dielectric permittivity tensor of a magneto-optic (gyrotropic) anisotropic material.
 %% The input is the core size (b) and shell thickness (d).
-%% The outputs are the components of the permittivity tensor at each wavelength. For epsilon_zz, runthe function again with B=0.
-%% The simulation is adapted from the Absorption Simulation function by Kenzie Lewis and Raaja Rajeshwari Manickam, based off algorithm by Dani et al. [1]
+%% The outputs are the εxx and εxy components of the permittivity tensor at each wavelength. For εzz, run the function again with B=0 [1].
+%% The simulation is adapted from the Absorption Simulation function by Kenzie Lewis and Raaja Rajeshwari Manickam, based off algorithm by Dani et al. [2]
 %% Make sure fitted parameters are up to date with the most recent experimental data.
 %% All units are SI except the absorption coefficient (cm^-1). Angles are in rads.
 
 %% -------------------------------------------------------------------------- %%
 %% ------------------------------- References ------------------------------- %%
 %% -------------------------------------------------------------------------- %%
-%% [1] R.K. Dani et al., “Supplemental Material for "Faraday rotation enhancement 
+%% [1] T.K. Xia, P.M. Hui, and D. Stroud, “Theory of Faraday rotation in granular magnetic materials,” Journal of Applied Physics 67(6), 2736–2741 (1990).
+%% [2] R.K. Dani et al., “Supplemental Material for "Faraday rotation enhancement 
 %%     of gold coated Fe2O3 nanoparticles: Comparison of experiment and theory” "
 %%     J. Chem. Phys, vol. 135, no. 224502, 2011. 
-%% [2] A. Ibrahim, “Synthesis and Characterization of Magnetic Nanoparticles 
+%% [3] A. Ibrahim, “Synthesis and Characterization of Magnetic Nanoparticles 
 %%     to Incorporate into Silicon Waveguides to be Used as Optical Isolators,” 
 %%     M.S. thesis, Eng. Phys., McMaster Univ., Hamilton, Ontario, 2019. [Online]. Available: https://macsphere.mcmaster.ca/bitstream/11375/24720/2/Ibrahim_Amr_E_201908_MASc.pdf 
 
@@ -56,10 +57,10 @@ epsa=1.0005;                       % air
 
 %% ------------ Parameters of magneto-optically active material ------------- %%
 
-%% Option 1: SnO2 (comment out Fe2O3 parameters) [2]
+%% Option 1: SnO2 (comment out Fe2O3 parameters) [3]
 
-Keff=5e3;                                   % effective anisotropy constant, 5-9e3 [2]
-Ms=250e3;                                   % saturation magnetization, 250-300e3 [2]
+Keff=5e3;                                   % effective anisotropy constant, 5-9e3 [3]
+Ms=250e3;                                   % saturation magnetization, 250-300e3 [3]
 c_wp=0;                                     % plasma frequency
 vf =1.4e6;                                  % Fermi velocity of gold
 c_gammap = (2.75e14 / (0.347e-15)) + vf / b;        % damping frequency, CHANGE
@@ -67,22 +68,22 @@ c_g0=1.2e15;                                % fitted parameter for tin oxide abs
 c_w0=6.7e15;                                % fitted parameter for tin oxide absorption 
 c_gamma0=9e15;                              % fitted parameter for tin oxide absorption  
 
-%% Option 2: Fe2O3 (comment out SnO2 parameters) [1]
+%% Option 2: Fe2O3 (comment out SnO2 parameters) [2]
 
 % Keff=4700;%9e3;                           % effective anisotropy constant, 5-9e3
 % Ms=414e3;%250e3;                          % saturation magnetization, 250-300e3
 % c_wp=0;                                   % plasma frequency
 % c_gammap=1/(0.347e-15)+vf/b;              % damping frequency
-% c_g0=5.2e15;                              % fitted parameter for iron oxide absorption [1]
-% c_w0=5.06e15;                             % fitted parameter for iron oxide absorption [1]
-% c_gamma0=2.89e15;                         % fitted parameter for iron oxide absorption [1]
+% c_g0=5.2e15;                              % fitted parameter for iron oxide absorption [2]
+% c_w0=5.06e15;                             % fitted parameter for iron oxide absorption [2]
+% c_gamma0=2.89e15;                         % fitted parameter for iron oxide absorption [2]
 
 %% All Options (do not comment out)
 Bzint=(((2/9)*mu0*c_Vs*Ms^2)/(kb*T))*B;     % internal magnetic field
 c_wB=(e*Bzint)/(me);                        % cyclotron frequency, assuming bulk effective mass of 9.5me^2 
 
 %% -------------------- Permittivity tensor calculation --------------------- %%
-% Based off Maxwell-Garnet Theory [1]
+% Based off Maxwell-Garnet Theory [2]
 
 for i = 1:length(wavelength)
 
