@@ -38,6 +38,6 @@ plot(wavelength_um, real(eps_XX_lambda), ...
 
 xlabel('Wavelength (\mum)')
 ylabel('Re(\epsilon_{XX})')
-title('Real Dielectric Permittivity for SnO2@Au')
+title('Real Effective Dielectric Permittivity for SnO2@Au')
 
 box on
