@@ -1,20 +1,20 @@
-%% Last updated: 2026-07-16 by Alice Calvert
-%% This program is a program to calculate the dielectric permittivity tensor of a magneto-optic (gyrotropic) anisotropic material.
-%% The input is the core size (b) and shell thickness (d).
-%% The outputs are the εxx and εxy components of the permittivity tensor at each wavelength. For εzz, run the function again with B=0 [1].
-%% The simulation is adapted from the Absorption Simulation function by Kenzie Lewis and Raaja Rajeshwari Manickam, based off algorithm by Dani et al. [2]
+%% Last updated: 2026-07-21 by Alice Calvert
+%% This is a program to calculate the dielectric permittivity tensor of a magneto-optic (gyrotropic) anisotropic material.
+%% The inputs are the core size (b), shell thickness (d), and planar number density [1/m^2] of the nanoparticles, as well as the magnetic flux density (B).
+%% The outputs are the components εxx and εxy of the permittivity tensor at each wavelength. For εzz, run the function again with B=0. [1]
+%% The simulation is adapted from the Absorption Simulation function by Kenzie Lewis and Raaja Rajeshwari Manickam, based off algorithm by Dani et al. [3]
 %% Make sure fitted parameters are up to date with the most recent experimental data.
 %% All units are SI except the absorption coefficient (cm^-1). Angles are in rads.
 
 %% -------------------------------------------------------------------------- %%
 %% ------------------------------- References ------------------------------- %%
 %% -------------------------------------------------------------------------- %%
-%% [1] T.K. Xia, P.M. Hui, and D. Stroud, “Theory of Faraday rotation in granular magnetic materials,” Journal of Applied Physics 67(6), 2736–2741 (1990).
-%% [2] R.K. Dani et al., “Supplemental Material for "Faraday rotation enhancement 
-%%     of gold coated Fe2O3 nanoparticles: Comparison of experiment and theory” "
+%% [1] T.K. Xia, P.M. Hui, and D. Stroud, "Theory of Faraday rotation in granular magnetic materials," Journal of Applied Physics 67(6), 2736–2741 (1990).
+%% [2] R.K. Dani et al., "Supplemental Material for "Faraday rotation enhancement 
+%%     of gold coated Fe2O3 nanoparticles: Comparison of experiment and theory" "
 %%     J. Chem. Phys, vol. 135, no. 224502, 2011. 
-%% [3] A. Ibrahim, “Synthesis and Characterization of Magnetic Nanoparticles 
-%%     to Incorporate into Silicon Waveguides to be Used as Optical Isolators,” 
+%% [3] A. Ibrahim, "Synthesis and Characterization of Magnetic Nanoparticles 
+%%     to Incorporate into Silicon Waveguides to be Used as Optical Isolators," 
 %%     M.S. thesis, Eng. Phys., McMaster Univ., Hamilton, Ontario, 2019. [Online]. Available: https://macsphere.mcmaster.ca/bitstream/11375/24720/2/Ibrahim_Amr_E_201908_MASc.pdf 
 
 %% -------------------------------------------------------------------------- %%
@@ -49,11 +49,6 @@ wavelength = 200e-9:1e-9:900e-9;     % sweep (comment out fixed wavelength)
 % wavelength = 532e-9;               % fixed (comment out wavelength sweep)
 eps_XX_lambda = zeros(length(wavelength),1);
 eps_XY_lambda = zeros(length(wavelength),1);
-
-
-%% Effective Medium Parameter (dielectric function of medium)
-%epsa=1.777;                       % water
-epsa=1.0005;                       % air
 
 %% ------------ Parameters of magneto-optically active material ------------- %%
 
