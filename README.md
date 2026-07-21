@@ -4,11 +4,15 @@ The input parameters are core radius (b), shell thickness (d), and planar number
 The outputs are the components εXX and εXY of the permittivity tensor as a function of wavelength. To get the εZZ component, run the function again inputting B=0 and the output εXX=εZZ [1].
 The Tensorial Permittivity Simulation function is adapted from the Absorption Simulation function by Kenzie Lewis and Raaja Rajeshwari Manickam, based off algorithm by Dani et al. [2]
 
-## Before running the function
+## Before running the simulation
+Edit the Tensorial Permittivity Simulation file to suit your needs. 
 Depending on whether a single wavelength (e.g., 532 nm) or a wavelength sweep (e.g., 200 to 900 nm) is being used, comment out the irrelevant parts.
 Make sure the fitted parameters (for the core - SnO2) are up to date with the most recent experimental data.
 Comment out the parameters for the magneto-optically (gyrotropically) anisotropic material that's not of interest (either SnO2 or Fe2O3).
 All the units are SI and the angles are in radians.
+
+## Running the simulation
+Run the function in the Get Permittivity Tensor file. This script runs the function and formats the outputs in an excel table and plot.
 
 # References
 [1] T.K. Xia, P.M. Hui, and D. Stroud, “Theory of Faraday rotation in granular magnetic materials,” Journal of Applied Physics 67(6), 2736–2741 (1990). \
