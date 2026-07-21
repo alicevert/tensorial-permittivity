@@ -7,11 +7,11 @@ clear
 b = 12.4; %core radius [nm]
 d = 2.5; %shell thickness [nm]
 n = 25e12; %planar density [m^-2]
-B = 0; %magnetic flux density at sample [T]
+B = 1; %magnetic flux density at sample [T]
 
 % Dielectric permittivity tensor
 
-[wavelength,eps_XX_lambda,eps_XY_lambda]=Tensorial_Permittivity_Simulation(b,d,n,B)
+[wavelength,eps_XX_lambda,eps_XY_lambda]=Tensorial_Permittivity_Simulation(b,d,n,B);
 
 % Create excel table
 
@@ -27,17 +27,17 @@ T = table( ...
     'VariableNames', ...
     {'wavelength (um)','eps_XX_real','wl (um)','eps_XX_imag','eps_XY_real','eps_XY_imag'});
 
-% writetable(T, "Tensorial_Permittivity_B0.xlsx");
+writetable(T, "Tensorial_Permittivity_Output.xlsx");
 
 % Plot
-% 
-% figure
-% 
-% plot(wavelength_um, real(eps_XX_lambda), ...
-%     'b-', 'LineWidth', 2)
-% 
-% xlabel('Wavelength (\mum)')
-% ylabel('Re(\epsilon_{XX})')
-% title('Real Effective Permittivity vs Wavelength for SnO2@Au')
-% 
-% box on
+
+figure
+
+plot(wavelength_um, real(eps_XX_lambda), ...
+    'b-', 'LineWidth', 2)
+
+xlabel('Wavelength (\mum)')
+ylabel('Re(\epsilon_{XX})')
+title('Real Dielectric Permittivity for SnO2@Au')
+
+box on
