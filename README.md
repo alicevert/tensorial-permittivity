@@ -1,7 +1,7 @@
 # Tensorial Permittivity Simulation
 This is a program that estimates the components of the dielectric permittivity tensor of an anisotropic material.
 The input parameters are core radius (b) [nm], shell thickness (d) [nm], and planar number density [1/m^2] of the nanoparticles, as well as the magnitude of the magnetic flux density (B) [T] applied to the sample.
-The outputs are the components εXX and εXY of the permittivity tensor as a function of wavelength. To get the εZZ component, run the function again inputting B=0 and the output εXX=εZZ [1].
+The outputs are the components εXX and εXY of the permittivity tensor as a function of wavelength. In the weak field limit, ωB·τ << 1, where ωB is cyclotron frequency and τ is a characteristic relaxation time defined in the Drude model, the diagonal permittivity tensor component εZZ ≃ εXX [1].
 The Tensorial Permittivity Simulation function is adapted from the Absorption Simulation function by Kenzie Lewis and Raaja Rajeshwari Manickam, based off algorithm by Dani et al. [2]
 
 ## Before running the simulation
