@@ -1,18 +1,14 @@
 # Tensorial Permittivity Simulation
-This is a program that estimates the components of the dielectric permittivity tensor of an anisotropic material.
-The input parameters are core radius (b) [nm], shell thickness (d) [nm], and planar number density [1/m^2] of the nanoparticles, as well as the magnitude of the magnetic flux density (B) [T] applied to the sample.
+This is a program that estimates the components of the dielectric permittivity tensor of a a magneto-optic (gyrotropic) anisotropic material using Maxwell-Garnett theory.
+The inputs are the nanoparticle radius (b) [nm] and material, magnitude of magnetic flux density (B) [T] applied to nanoparticles, and the range of wavelengths.
 The outputs are the components εXX and εXY of the permittivity tensor as a function of wavelength. In the weak field limit, ωB·τ << 1, where ωB is cyclotron frequency and τ is a characteristic relaxation time defined in the Drude model, the diagonal permittivity tensor component εZZ ≃ εXX [1].
 The Tensorial Permittivity Simulation function is adapted from the Absorption Simulation function by Kenzie Lewis and Raaja Rajeshwari Manickam, based off algorithm by Dani et al. [2]
 
 ## Before running the simulation
-Edit the Tensorial Permittivity Simulation file to suit your needs. 
-Depending on whether a single wavelength (e.g., 532 nm) or a wavelength sweep (e.g., 200 to 900 nm) is being used, comment out the irrelevant parts.
-Make sure the fitted parameters (for the core - SnO2) are up to date with the most recent experimental data.
-Comment out the parameters for the magneto-optically (gyrotropically) anisotropic material that's not of interest (either SnO2 or Fe2O3).
-All the units are SI and the angles are in radians.
+Make sure the fitted parameters for the nanoparticle material (for SnO2, Fe2O3, or other) are up to date with the most recent experimental data. All the units are SI.
 
 ## Running the simulation
-Run the function in the Get Permittivity Tensor file. This script runs the function and formats the outputs in an excel table and plot.
+Run the function in the Get Permittivity Tensor file, a script that formats the outputs in an excel table and MATLAB plot. Two separate plots are returned for the real and imaginary parts of the effective permittivity, εeff = εxx.
 ![Figure Description](permittivity_tensor_plot.png)   
 
 # References
