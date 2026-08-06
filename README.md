@@ -4,7 +4,7 @@ The inputs are the nanoparticle radius (b) [nm] and material, magnitude of magne
 The outputs are the components εXX and εXY of the permittivity tensor as a function of wavelength. In the weak field limit, ωB·τ << 1, where ωB is cyclotron frequency and τ is a characteristic relaxation time defined in the Drude model, the diagonal permittivity tensor component εZZ ≃ εXX [1].
 The Tensorial Permittivity Simulation function is adapted from the Absorption Simulation function by Kenzie Lewis and Raaja Rajeshwari Manickam, based off algorithm by Dani et al. [2]
 
-## Before running the simulation
+## Before simulation
 Make sure the fitted parameters for the nanoparticle material (for SnO2, Fe2O3, or other) are up to date with the most recent experimental data. All the units are SI.
 
 ## Running the simulation
