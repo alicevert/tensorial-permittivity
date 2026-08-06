@@ -1,5 +1,5 @@
-%% Last updated: 2026-07-29 by Alice Calvert
-%% This is a function to calculate the dielectric permittivity tensor of a magneto-optic (gyrotropic) anisotropic material using Maxwell-Garnett theory.
+%% Last updated: 2026-08-05 by Alice Calvert
+%% This is a function to calculate the dielectric permittivity tensor of a magneto-optic (gyrotropic) anisotropic nanoparticle using Maxwell-Garnett theory.
 %% The inputs are the nanoparticle radius (b) [nm] and material, magnitude of magnetic flux density (B) [T] applied to nanoparticles, and the range of wavelengths.
 %% The outputs are the components εxx and εxy of the permittivity tensor at each wavelength. In the weak field limit, ωB·τ << 1, where ωB is cyclotron 
 %% frequency and τ is a characteristic relaxation time defined in the Drude model, the diagonal permittivity tensor component εzz ≃ εxx [1].
@@ -45,17 +45,25 @@ eps_XY_lambda = zeros(length(wavelength),1);
 
 if strcmpi(material, 'sno2')
     %% Option 1: SnO2 [3]
-    Ms=250e3;                                   % saturation magnetization, 250-300e3 [3]
-    c_g0=1.2e15;                                % fitted parameter for tin oxide absorption 
-    c_w0=6.7e15;                                % fitted parameter for tin oxide absorption 
-    c_gamma0=9e15;                              % fitted parameter for tin oxide absorption  
+    tau=0.347e-15;                          % scattering time
+    vf=0;                                   % Fermi velocity
+    wp=0;                                   % plasma frequency
+    gammap=1/tau+vf/b;                      % damping frequency
+    Ms=250e3;                               % saturation magnetization, 250-300e3 [3]
+    g0=1.2e15;                              % fitted parameter for tin oxide absorption 
+    w0=6.7e15;                              % fitted parameter for tin oxide absorption 
+    gamma0=9e15;                            % fitted parameter for tin oxide absorption  
 
 elseif strcmpi(material, 'fe2o3')
     %% Option 2: Fe2O3 [2]
-    Ms=414e3;%250e3;                          % saturation magnetization, 250-300e3
-    c_g0=5.2e15;                              % fitted parameter for iron oxide absorption [2]
-    c_w0=5.06e15;                             % fitted parameter for iron oxide absorption [2]
-    c_gamma0=2.89e15;                         % fitted parameter for iron oxide absorption [2]
+    tau=0.347e-15;                          % scattering time
+    vf=0;                                   % Fermi velocity
+    wp=0;                                   % plasma frequency
+    gammap=1/tau+vf/b;                      % damping frequency
+    Ms=414e3;%250e3;                        % saturation magnetization, 250-300e3 [2]
+    g0=5.2e15;                              % fitted parameter for iron oxide absorption [2]
+    w0=5.06e15;                             % fitted parameter for iron oxide absorption [2]
+    gamma0=2.89e15;                         % fitted parameter for iron oxide absorption [2]
 
 elseif strcmpi(material, 'other')
     %% Option 3: Other materials
@@ -63,10 +71,14 @@ elseif strcmpi(material, 'other')
     confirmed = false;
     while ~confirmed
 
+        tau = input('Enter the scattering time [s] of the free electrons:');
+        vf = input('Enter the Fermi velocity [m/s] of the free electrons:');
+        wp = input('Enter the plasma frequency [rad/s] of the free electrons:');
+        gammap = (1/tau)+(vf/b);
         Ms = input('Enter the saturation magnetization [A/m]:');
-        c_g0 = input('Enter the oscillator strength of bound electrons:');
-        c_w0 = input('Enter the binding frequency [Hz] of bound electrons:');
-        c_gamma0 = input('Enter the damping frequency [Hz] of bound electrons:');
+        g0 = input('Enter the oscillator strength of bound electrons:');
+        w0 = input('Enter the binding frequency [Hz] of bound electrons:');
+        gamma0 = input('Enter the damping frequency [Hz] of bound electrons:');
         
         while true
 
@@ -89,18 +101,18 @@ elseif strcmpi(material, 'other')
 end
 
 Bzint=(((2/9)*mu0*c_Vs*Ms^2)/(kb*T))*B;     % internal magnetic field
-c_wB=(e*Bzint)/(me);                        % cyclotron frequency, assuming bulk effective mass of 9.5me^2 
+wB=(e*Bzint)/(me);                        % cyclotron frequency, assuming bulk effective mass of 9.5me^2 
 
 %% -------------------- Permittivity tensor calculation --------------------- %%
-% Based off Maxwell-Garnet Theory [2]
+% Based off Maxwell-Garnett Theory [2]
 
 for i = 1:length(wavelength)
 
     lambda = wavelength(i);
     w=(2*pi*c)/lambda;             	    % optical frequency
 
-    eps_L= 1-(c_g0^2)/(w^2-c_w0^2+1i*c_gamma0*w-w*c_wB); % dielectric function, left polarization
-    eps_R= 1-(c_g0^2)/(w^2-c_w0^2+1i*c_gamma0*w+w*c_wB); % dielectric function, right polarization
+    eps_L= 1-(g0^2)/(w^2-w0^2+1i*gamma0*w-w*wB)-(wp^2)/(w^2+1i*gammap*w-w*wB); % dielectric function, left polarization
+    eps_R= 1-(g0^2)/(w^2-w0^2+1i*gamma0*w+w*wB)-(wp^2)/(w^2+1i*gammap*w+w*wB); % dielectric function, right polarization
 
     eps_XX = 0.5*(eps_R+eps_L);
     eps_XY=(1i/2)*(eps_R-eps_L);
