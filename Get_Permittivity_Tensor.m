@@ -1,6 +1,6 @@
-% Last Updated: 2026-07-29 by Alice Calvert
+% Last Updated: 2026-08-05 by Alice Calvert
 % This is a script that simulates the wavelength-dependent dielectric permittivity tensor of a magneto-optically (gyrotropic) 
-% anisotropic material across different wavelengths using the Maxwell-Garnett effective medium approximation (EMA).
+% anisotropic nanoparticle across different wavelengths using the Maxwell-Garnett effective medium approximation (EMA).
 % See the Tensorial_Permittivity_Simulation file for more details on the inputs.
 % The εxx and εxy components of the permittivity tensor are formatted into an excel table. 
 % The real and imaginary parts of the effective permittivity, εeff = εxx are plotted.
